@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Update Book</title>
+</head>
+<body>
+    <h1>Library Management System</h1>
+    <h2>Update Book</h2>
+    <form action="updateBook" method="post">
+        ISBN No:<input type="text" name="isbnNo" readonly><br><br>
+        Title:<input type="text" name="title" required><br><br>
+        Author:<input type="text" name="author" required><br><br>
+        Publisher:<input type="text" name="publisher" required><br><br>
+        Price:<input type="number" name="price" step="0.01" required><br><br>
+        <input type="submit" value="Update Book">
+    </form>
+    <br>
+    <a href="bookList">Back</a>
+</body>
+</html>

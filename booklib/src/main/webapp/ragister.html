@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+</head>
+<body>
+    <h1>Library Management System</h1>
+    <h2>Register</h2>
+    <form action="register" method="post">
+        Username:<input type="text" name="username" required><br><br>
+        Password:<input type="password" name="password" required><br><br>
+        Role:<select name="role" required>
+             <option value="USER">User</option>
+             <option value="AUTHOR">Author</option>
+             <option value="LIBRARIAN">Librarian</option>
+        </select><br><br>
+        <input type="submit" value="Register">
+    </form>
+    <a href="index.html">Back to Login</a>
+</body>
+</html>
