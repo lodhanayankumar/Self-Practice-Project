@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Products - ShopAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="logo">
+        ShopAI
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Products
+        </a>
+
+        <a href="recommendations.html">
+            Recommendations
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="products-page">
+
+    <div class="products-header">
+
+        <h1>
+            All Products
+        </h1>
+
+        <p>
+            Explore products available in our
+            AI-powered e-commerce store.
+        </p>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products by name or category">
+
+            <button
+                class="btn"
+                onclick="searchProducts()">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Product cards will appear here -->
+
+    <div id="productContainer"
+         class="product-grid">
+
+        <p>
+            Loading products...
+        </p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 ShopAI E-Commerce
+    </p>
+
+</footer>
+
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

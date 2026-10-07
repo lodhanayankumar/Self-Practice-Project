@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart - ShopAI</title>
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="logo">
+        ShopAI
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Products
+        </a>
+
+        <a href="recommendations.html">
+            Recommendations
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="cart-page">
+
+    <h1>
+        My Shopping Cart
+    </h1>
+
+
+    <div id="cartContainer">
+
+        <p>
+            Loading cart...
+        </p>
+
+    </div>
+
+
+    <div id="cartTotal"
+         class="cart-total">
+    </div>
+
+
+    <button
+        class="checkout-btn"
+        onclick="checkout()">
+
+        Proceed to Checkout
+
+    </button>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 ShopAI E-Commerce
+    </p>
+
+</footer>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadCart();
+
+    }
+);
+
+
+// =====================================
+// LOAD CART
+// =====================================
+
+function loadCart() {
+
+    fetch("cart")
+
+        .then(function(response) {
+
+            return response.json();
+
+        })
+
+        .then(function(data) {
+
+            if (data.loginRequired) {
+
+                document.getElementById(
+                    "cartContainer"
+                ).innerHTML =
+                    `
+                    <div class="empty-cart">
+
+                        <h2>
+                            Please Login
+                        </h2>
+
+                        <p>
+                            Login to view your cart.
+                        </p>
+
+                        <a
+                            href="login.html"
+                            class="btn">
+
+                            Login
+
+                        </a>
+
+                    </div>
+                    `;
+
+                return;
+
+            }
+
+
+            displayCart(data);
+
+        })
+
+        .catch(function(error) {
+
+            console.error(error);
+
+            document.getElementById(
+                "cartContainer"
+            ).innerHTML =
+                `
+                <p>
+                    Unable to load cart.
+                </p>
+                `;
+
+        });
+
+}
+
+
+// =====================================
+// DISPLAY CART
+// =====================================
+
+function displayCart(items) {
+
+    const container =
+        document.getElementById(
+            "cartContainer"
+        );
+
+
+    if (!items || items.length === 0) {
+
+        container.innerHTML =
+            `
+            <div class="empty-cart">
+
+                <h2>
+                    Your cart is empty
+                </h2>
+
+                <p>
+                    Add some products to your cart.
+                </p>
+
+                <a
+                    href="products.html"
+                    class="btn">
+
+                    Continue Shopping
+
+                </a>
+
+            </div>
+            `;
+
+
+        document.getElementById(
+            "cartTotal"
+        ).innerHTML = "";
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+
+    let html =
+        `
+        <div class="cart-list">
+        `;
+
+
+    items.forEach(function(item) {
+
+        const itemTotal =
+            item.price * item.quantity;
+
+
+        total += itemTotal;
+
+
+        html +=
+            `
+            <div class="cart-item">
+
+                <div class="cart-item-info">
+
+                    <h2>
+                        ${item.productName}
+                    </h2>
+
+                    <p>
+                        Price:
+                        ₹${item.price.toLocaleString('en-IN')}
+                    </p>
+
+                </div>
+
+
+                <div class="quantity-box">
+
+                    <button
+                        onclick="updateQuantity(
+                            ${item.id},
+                            ${item.quantity - 1}
+                        )">
+
+                        -
+
+                    </button>
+
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+
+                    <button
+                        onclick="updateQuantity(
+                            ${item.id},
+                            ${item.quantity + 1}
+                        )">
+
+                        +
+
+                    </button>
+
+                </div>
+
+
+                <div class="item-total">
+
+                    ₹${itemTotal.toLocaleString('en-IN')}
+
+                </div>
+
+
+                <button
+                    class="remove-btn"
+                    onclick="removeItem(${item.id})">
+
+                    Remove
+
+                </button>
+
+            </div>
+            `;
+
+    });
+
+
+    html +=
+        `
+        </div>
+        `;
+
+
+    container.innerHTML =
+        html;
+
+
+    document.getElementById(
+        "cartTotal"
+    ).innerHTML =
+        `
+        <h2>
+            Total:
+            ₹${total.toLocaleString('en-IN')}
+        </h2>
+        `;
+
+}
+
+
+// =====================================
+// UPDATE QUANTITY
+// =====================================
+
+function updateQuantity(cartId, quantity) {
+
+    if (quantity < 1) {
+
+        quantity = 1;
+
+    }
+
+
+    const formData =
+        new URLSearchParams();
+
+
+    formData.append(
+        "action",
+        "update"
+    );
+
+
+    formData.append(
+        "cartId",
+        cartId
+    );
+
+
+    formData.append(
+        "quantity",
+        quantity
+    );
+
+
+    fetch("cart", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+
+        },
+
+        body: formData.toString()
+
+    })
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        if (result.success) {
+
+            loadCart();
+
+        } else {
+
+            alert(result.message);
+
+        }
+
+    });
+
+}
+
+
+// =====================================
+// REMOVE ITEM
+// =====================================
+
+function removeItem(cartId) {
+
+    const formData =
+        new URLSearchParams();
+
+
+    formData.append(
+        "action",
+        "remove"
+    );
+
+
+    formData.append(
+        "cartId",
+        cartId
+    );
+
+
+    fetch("cart", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+
+        },
+
+        body: formData.toString()
+
+    })
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        if (result.success) {
+
+            loadCart();
+
+        } else {
+
+            alert(result.message);
+
+        }
+
+    });
+
+}
+
+
+// =====================================
+// CHECKOUT
+// =====================================
+
+function checkout() {
+
+    alert(
+        "Checkout module will be implemented next."
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

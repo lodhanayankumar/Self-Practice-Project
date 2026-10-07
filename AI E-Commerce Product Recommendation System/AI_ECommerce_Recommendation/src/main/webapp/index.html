@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ShopAI - Smart E-Commerce</title>
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        ShopAI
+        <span>Explore Smart Shopping</span>
+    </div>
+
+    <div class="nav-search">
+
+        <input type="text"
+               id="homeSearch"
+               placeholder="Search for products, brands and more">
+
+        <button onclick="searchFromHome()">🔍</button>
+
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="products.html">Products</a>
+
+        <a href="recommendations.html">
+            Recommendations
+        </a>
+
+        <a href="cart.html"
+           class="cart-link">
+
+            🛒 Cart
+
+            <span class="cart-count"
+                  id="cartCount">
+                0
+            </span>
+
+        </a>
+
+        <a href="orders.html">Orders</a>
+
+        <a href="login.html">Login</a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Smart Shopping
+            <br>
+            <span>Powered by AI</span>
+        </h1>
+
+        <p>
+            Discover products you will love,
+            get personalized recommendations
+            and enjoy a smarter shopping experience.
+        </p>
+
+        <a href="products.html"
+           class="btn">
+            🛍️ Shop Now
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="categories">
+
+    <div class="category">
+        <div class="category-icon">📱</div>
+        <p>Mobiles</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">💻</div>
+        <p>Laptops</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">🎧</div>
+        <p>Audio</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">⌚</div>
+        <p>Wearables</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">🎒</div>
+        <p>Bags</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">👟</div>
+        <p>Footwear</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">⌨️</div>
+        <p>Accessories</p>
+    </div>
+
+    <div class="category">
+        <div class="category-icon">👕</div>
+        <p>Fashion</p>
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+    <div class="feature-card">
+
+        <div class="feature-icon">
+            🤖
+        </div>
+
+        <h2>AI Recommendations</h2>
+
+        <p>
+            Our recommendation system studies
+            your shopping activity and suggests
+            products according to your interests.
+        </p>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <div class="feature-icon">
+            🚚
+        </div>
+
+        <h2>Easy Shopping</h2>
+
+        <p>
+            Search products, add them to your cart
+            and place orders with a simple
+            shopping experience.
+        </p>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <div class="feature-icon">
+            🔒
+        </div>
+
+        <h2>Secure Account</h2>
+
+        <p>
+            Login to your account and manage
+            your cart, orders and personalized
+            recommendations.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI SECTION ================= -->
+
+<section class="ai-section">
+
+    <h2>
+        🤖 Your Personal AI Shopping Assistant
+    </h2>
+
+    <p>
+        Buy a product and our recommendation
+        engine will understand your interests
+        and suggest similar products.
+    </p>
+
+    <a href="recommendations.html"
+       class="btn">
+        View AI Recommendations
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>ShopAI</h3>
+
+            <p>
+                Smart E-Commerce Product
+                Recommendation System.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <a href="index.html">Home</a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="cart.html">
+                Cart
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>Customer</h3>
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+            <a href="orders.html">
+                My Orders
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>AI Features</h3>
+
+            <a href="recommendations.html">
+                Recommendations
+            </a>
+
+            <a href="products.html">
+                Smart Search
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 ShopAI E-Commerce |
+        AI Product Recommendation System
+
+    </div>
+
+</footer>
+
+
+<script>
+
+function searchFromHome() {
+
+    const keyword =
+        document.getElementById("homeSearch").value.trim();
+
+    if (keyword === "") {
+
+        window.location.href = "products.html";
+
+    } else {
+
+        window.location.href =
+            "products.html?keyword="
+            + encodeURIComponent(keyword);
+
+    }
+
+}
+
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+    let count = 0;
+
+    cart.forEach(function(item) {
+
+        count += item.quantity;
+
+    });
+
+    const element =
+        document.getElementById("cartCount");
+
+    if (element) {
+
+        element.innerText = count;
+
+    }
+
+}
+
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>
